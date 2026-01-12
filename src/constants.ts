@@ -19,14 +19,14 @@ export const SKILLS: Skill[] = [
 export const PROJECTS: Project[] = [
   {
     id: '01',
-    title: 'NEON_LAUNCH',
+    title: 'AADEEN_TRADING_EST',
     category: 'PRODUCT LANDING',
     description: 'High-conversion landing page for a cyberpunk fashion brand. CSS Grid layout with neon glow effects.',
     tech: ['HTML5', 'CSS3', 'JavaScript'],
     year: '2024',
     imageUrl: 'https://picsum.photos/800/600?grayscale',
     link: '#',
-    demoUrl: '/projects/neon-launch/index.html',
+    demoUrl: '/projects/Aadeen_Trading_Est/index.html',
     color: 'bg-brutal-green',
   },
   {
