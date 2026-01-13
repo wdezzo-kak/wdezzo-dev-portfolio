@@ -45,7 +45,7 @@ const Navbar: React.FC = () => {
                 key={item.label}
                 href={item.href}
                 onClick={(e) => handleScroll(e, item.href)}
-                className="text-xl font-bold hover:bg-brutal-green hover:text-black border-2 border-transparent hover:border-black hover:shadow-hard px-4 py-1 transition-all duration-100"
+                className="text-xl font-bold hover:bg-brutal-lime hover:text-black border-2 border-transparent hover:border-black hover:shadow-hard px-4 py-1 transition-all duration-100"
               >
                 {item.label}
               </a>
@@ -56,7 +56,7 @@ const Navbar: React.FC = () => {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 border-2 border-black hover:bg-brutal-green active:shadow-none shadow-hard transition-all"
+              className="p-2 border-2 border-black hover:bg-brutal-lime active:shadow-none shadow-hard transition-all"
             >
               <Menu size={28} />
             </button>
@@ -73,7 +73,7 @@ const Navbar: React.FC = () => {
                 key={item.label}
                 href={item.href}
                 onClick={(e) => handleScroll(e, item.href)}
-                className="block px-3 py-4 text-2xl font-black hover:bg-brutal-pink border-b-2 border-black last:border-0"
+                className="block px-3 py-4 text-2xl font-black hover:bg-brutal-pink-neon border-b-2 border-black last:border-0"
               >
                 {item.label}
               </a>

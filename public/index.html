@@ -19,7 +19,7 @@
             colors: {
               'brutal-bg': '#f0f0f0',
               'brutal-black': '#121212',
-               'brutal-yellow': '#ffff00',
+              'brutal-yellow': '#ffff00',
               'brutal-red': '#ff0000',
               'brutal-purple': '#7f00ff',
               'brutal-lime': '#66ff00',
@@ -37,7 +37,21 @@
               'hard-r': '-4px 4px 0px 0px #000000',
             }
           }
-        }
+        },
+        safelist: [
+          'bg-brutal-lime',
+          'bg-brutal-pink-neon',
+          'bg-brutal-blue-electric',
+          'bg-brutal-orange-hot',
+          'text-brutal-lime',
+          'stroke-brutal-lime',
+          'group-hover:stroke-brutal-lime',
+          'group-hover:text-brutal-lime',
+          'hover:bg-brutal-lime',
+          'hover:bg-brutal-pink-neon',
+          'hover:bg-brutal-blue-electric',
+          'hover:text-brutal-lime'
+        ]
       }
     </script>
     <style>
@@ -66,11 +80,11 @@
         border: 2px solid #fff;
       }
       ::-webkit-scrollbar-thumb:hover {
-        background: #ccff00;
+        background: #66ff00; /* brutal-lime */
       }
       ::selection {
         background: #000;
-        color: #ccff00;
+        color: #66ff00; /* brutal-lime */
       }
     </style>
   <script type="importmap">

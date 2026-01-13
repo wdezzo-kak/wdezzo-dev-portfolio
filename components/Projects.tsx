@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { PROJECTS } from '../constants';
-import { ExternalLink, Github, X } from 'lucide-react';
+import { ExternalLink, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Projects: React.FC = () => {
@@ -42,7 +42,7 @@ const Projects: React.FC = () => {
               onClick={(e) => e.stopPropagation()}
             >
               {/* Modal Header */}
-              <div className="flex-shrink-0 h-12 bg-brutal-green border-b-4 border-black flex items-center justify-between px-4 select-none">
+              <div className="flex-shrink-0 h-12 bg-brutal-lime border-b-4 border-black flex items-center justify-between px-4 select-none">
                 <div className="flex items-center gap-2">
                   <div className="w-3 h-3 bg-black rounded-full"></div>
                   <div className="w-3 h-3 bg-black rounded-full opacity-50"></div>
@@ -147,9 +147,6 @@ const Projects: React.FC = () => {
                     >
                        <ExternalLink size={18} /> LIVE DEMO
                     </button>
-                    <a href="#" className="flex-none px-4 flex items-center justify-center border-2 border-black hover:bg-brutal-pink transition-colors">
-                       <Github size={20} />
-                    </a>
                   </div>
                 </div>
               </div>

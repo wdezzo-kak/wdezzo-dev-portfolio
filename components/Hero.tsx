@@ -34,7 +34,7 @@ const Hero: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
              >
-               <h2 className="font-mono text-xl md:text-2xl font-bold mb-4 bg-brutal-orange inline-block px-2 py-1 border-2 border-black shadow-hard">
+               <h2 className="font-mono text-xl md:text-2xl font-bold mb-4 bg-brutal-orange-hot inline-block px-2 py-1 border-2 border-black shadow-hard">
                  FRONTEND DEVELOPER
                </h2>
              </motion.div>
@@ -67,7 +67,7 @@ const Hero: React.FC = () => {
               <a 
                 href="#work" 
                 onClick={(e) => handleScroll(e, '#work')}
-                className="inline-flex items-center text-2xl font-black bg-black text-white px-8 py-4 border-2 border-transparent hover:bg-brutal-green hover:text-black hover:border-black hover:shadow-hard transition-all duration-200 group"
+                className="inline-flex items-center text-2xl font-black bg-black text-white px-8 py-4 border-2 border-transparent hover:bg-brutal-lime hover:text-black hover:border-black hover:shadow-hard transition-all duration-200 group"
               >
                 VIEW WORK
                 <ArrowDownRight className="ml-4 group-hover:rotate-45 transition-transform duration-200" size={32} />
@@ -82,7 +82,7 @@ const Hero: React.FC = () => {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.4, duration: 0.5 }}
             >
-                <div className="absolute inset-0 bg-brutal-blue opacity-20"></div>
+                <div className="absolute inset-0 bg-brutal-blue-electric opacity-20"></div>
                 <div className="text-center transform rotate-12">
                    <div className="text-9xl font-black opacity-10 select-none">HTML</div>
                    <div className="text-9xl font-black opacity-10 select-none">CSS</div>

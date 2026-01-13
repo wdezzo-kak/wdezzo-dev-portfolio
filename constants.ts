@@ -19,15 +19,15 @@ export const SKILLS: Skill[] = [
 export const PROJECTS: Project[] = [
   {
     id: '01',
-    title: 'AADEEN_TRADING_EST',
+    title: 'NEON_LAUNCH',
     category: 'PRODUCT LANDING',
     description: 'High-conversion landing page for a cyberpunk fashion brand. CSS Grid layout with neon glow effects.',
     tech: ['HTML5', 'CSS3', 'JavaScript'],
     year: '2024',
     imageUrl: 'https://picsum.photos/800/600?grayscale',
     link: '#',
-    demoUrl: '/projects/Aadeen_Trading_Est/index.html',
-    color: 'bg-brutal-green',
+    demoUrl: '/projects/neon-launch/index.html',
+    color: 'bg-brutal-lime',
   },
   {
     id: '02',
@@ -39,7 +39,7 @@ export const PROJECTS: Project[] = [
     imageUrl: 'https://picsum.photos/800/601?grayscale',
     link: '#',
     demoUrl: '/projects/startup-x/index.html',
-    color: 'bg-brutal-pink',
+    color: 'bg-brutal-pink-neon',
   },
   {
     id: '03',
@@ -51,7 +51,7 @@ export const PROJECTS: Project[] = [
     imageUrl: 'https://picsum.photos/800/602?grayscale',
     link: '#',
     demoUrl: '/projects/turbo-agency/index.html',
-    color: 'bg-brutal-blue',
+    color: 'bg-brutal-blue-electric',
   },
   {
     id: '04',
@@ -63,6 +63,6 @@ export const PROJECTS: Project[] = [
     imageUrl: 'https://picsum.photos/800/603?grayscale',
     link: '#',
     demoUrl: '/projects/event-horizon/index.html',
-    color: 'bg-brutal-orange',
+    color: 'bg-brutal-orange-hot',
   },
 ];

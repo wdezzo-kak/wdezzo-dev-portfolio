@@ -17,7 +17,7 @@ function App() {
   if (!isMounted) return null;
 
   return (
-    <div className="min-h-screen bg-[#f3f3f3] font-sans text-brutal-black selection:bg-black selection:text-brutal-green">
+    <div className="min-h-screen bg-[#f3f3f3] font-sans text-brutal-black selection:bg-black selection:text-brutal-lime">
       <Navbar />
       <Hero />
       <Marquee text=" // RESPONSIVE DESIGN // LANDING PAGES // UI DEVELOPMENT // CLEAN CODE // " className="rotate-1 scale-105" />

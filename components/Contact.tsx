@@ -23,7 +23,7 @@ const Contact: React.FC = () => {
                 <input 
                   type="text" 
                   placeholder="NAME OR ALIAS" 
-                  className="w-full bg-[#f0f0f0] border-2 border-black p-4 font-mono focus:outline-none focus:bg-brutal-blue focus:shadow-hard transition-all placeholder-gray-500"
+                  className="w-full bg-[#f0f0f0] border-2 border-black p-4 font-mono focus:outline-none focus:bg-brutal-blue-electric focus:shadow-hard transition-all placeholder-gray-500"
                 />
               </div>
               <div className="space-y-2">
@@ -31,7 +31,7 @@ const Contact: React.FC = () => {
                 <input 
                   type="email" 
                   placeholder="EMAIL ADDRESS" 
-                  className="w-full bg-[#f0f0f0] border-2 border-black p-4 font-mono focus:outline-none focus:bg-brutal-blue focus:shadow-hard transition-all placeholder-gray-500"
+                  className="w-full bg-[#f0f0f0] border-2 border-black p-4 font-mono focus:outline-none focus:bg-brutal-blue-electric focus:shadow-hard transition-all placeholder-gray-500"
                 />
               </div>
             </div>
@@ -41,13 +41,13 @@ const Contact: React.FC = () => {
               <textarea 
                 rows={5} 
                 placeholder="YOUR MESSAGE HERE..." 
-                className="w-full bg-[#f0f0f0] border-2 border-black p-4 font-mono focus:outline-none focus:bg-brutal-blue focus:shadow-hard transition-all placeholder-gray-500"
+                className="w-full bg-[#f0f0f0] border-2 border-black p-4 font-mono focus:outline-none focus:bg-brutal-blue-electric focus:shadow-hard transition-all placeholder-gray-500"
               ></textarea>
             </div>
 
             <button 
               type="submit" 
-              className="w-full bg-black text-white text-2xl font-black uppercase py-6 border-2 border-transparent hover:bg-brutal-green hover:text-black hover:border-black hover:shadow-hard transition-all duration-200 flex items-center justify-center gap-4 group"
+              className="w-full bg-black text-white text-2xl font-black uppercase py-6 border-2 border-transparent hover:bg-brutal-lime hover:text-black hover:border-black hover:shadow-hard transition-all duration-200 flex items-center justify-center gap-4 group"
             >
               SEND DATA <Send className="group-hover:translate-x-2 transition-transform" />
             </button>

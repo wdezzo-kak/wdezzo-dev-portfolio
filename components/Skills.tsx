@@ -9,7 +9,7 @@ const Skills: React.FC = () => {
             <h2 className="text-6xl md:text-8xl font-black uppercase tracking-tighter leading-none">
               CORE<br/>STACK
             </h2>
-            <p className="font-mono text-lg mt-4 md:mt-0 max-w-md border-l-4 border-brutal-orange pl-4">
+            <p className="font-mono text-lg mt-4 md:mt-0 max-w-md border-l-4 border-brutal-orange-hot pl-4">
               The essential toolkit I use to craft structure, style, and interactivity.
             </p>
         </div>
@@ -22,17 +22,17 @@ const Skills: React.FC = () => {
                 key={skill.name} 
                 className="group relative p-6 bg-white border-2 border-black hover:bg-black hover:text-white transition-colors duration-200 flex flex-col items-center justify-center text-center aspect-square"
               >
-                {Icon && <Icon size={48} className="mb-4 stroke-1 group-hover:stroke-brutal-green transition-colors" />}
+                {Icon && <Icon size={48} className="mb-4 stroke-1 group-hover:stroke-brutal-lime transition-colors" />}
                 <h3 className="font-bold text-lg uppercase tracking-wider mb-2">{skill.name}</h3>
-                <span className="text-xs font-mono px-2 py-1 border border-black group-hover:border-white group-hover:text-brutal-green">
+                <span className="text-xs font-mono px-2 py-1 border border-black group-hover:border-white group-hover:text-brutal-lime">
                   {skill.level}
                 </span>
                 
                 {/* Corner Accents */}
-                <div className="absolute top-1 left-1 w-2 h-2 bg-black group-hover:bg-brutal-green"></div>
-                <div className="absolute top-1 right-1 w-2 h-2 bg-black group-hover:bg-brutal-green"></div>
-                <div className="absolute bottom-1 left-1 w-2 h-2 bg-black group-hover:bg-brutal-green"></div>
-                <div className="absolute bottom-1 right-1 w-2 h-2 bg-black group-hover:bg-brutal-green"></div>
+                <div className="absolute top-1 left-1 w-2 h-2 bg-black group-hover:bg-brutal-lime"></div>
+                <div className="absolute top-1 right-1 w-2 h-2 bg-black group-hover:bg-brutal-lime"></div>
+                <div className="absolute bottom-1 left-1 w-2 h-2 bg-black group-hover:bg-brutal-lime"></div>
+                <div className="absolute bottom-1 right-1 w-2 h-2 bg-black group-hover:bg-brutal-lime"></div>
               </div>
             );
           })}

@@ -9,7 +9,7 @@ interface MarqueeProps {
 
 const Marquee: React.FC<MarqueeProps> = ({ text, direction = 'left', className = '' }) => {
   return (
-    <div className={`overflow-hidden whitespace-nowrap border-y-2 border-black bg-brutal-green py-2 ${className}`}>
+    <div className={`overflow-hidden whitespace-nowrap border-y-2 border-black bg-brutal-lime py-2 ${className}`}>
       <motion.div
         className="inline-block"
         animate={{ x: direction === 'left' ? "-50%" : "0%" }}
