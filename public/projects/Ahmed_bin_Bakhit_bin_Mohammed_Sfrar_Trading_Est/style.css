@@ -1,0 +1,30 @@
+html {
+    scroll-behavior: smooth;
+}
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #0a1929;
+    color: #e6f1ff;
+}
+.font-serif {
+    font-family: 'Crimson Pro', serif;
+}
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.section-border {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.product-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.product-hover:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
