@@ -9,16 +9,37 @@ import Footer from './components/Footer';
 
 function App() {
   const [isMounted, setIsMounted] = useState(false);
+  const [isDark, setIsDark] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('theme');
+      return saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    }
+    return false;
+  });
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
+  useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+      document.body.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      document.body.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  }, [isDark]);
+
+  const toggleTheme = () => setIsDark(!isDark);
+
   if (!isMounted) return null;
 
   return (
-    <div className="min-h-screen bg-[#f3f3f3] font-sans text-brutal-black selection:bg-black selection:text-brutal-lime">
-      <Navbar />
+    <div className="min-h-screen bg-[#f3f3f3] dark:bg-brutal-black font-sans text-brutal-black dark:text-white selection:bg-black dark:selection:bg-brutal-lime selection:text-brutal-lime dark:selection:text-black transition-colors duration-300">
+      <Navbar onToggleTheme={toggleTheme} isDark={isDark} />
       <Hero />
       <Marquee text=" // RESPONSIVE DESIGN // LANDING PAGES // UI DEVELOPMENT // CLEAN CODE // " className="rotate-1 scale-105" />
       <Projects />

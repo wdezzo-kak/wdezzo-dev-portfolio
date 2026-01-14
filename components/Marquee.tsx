@@ -9,7 +9,7 @@ interface MarqueeProps {
 
 const Marquee: React.FC<MarqueeProps> = ({ text, direction = 'left', className = '' }) => {
   return (
-    <div className={`overflow-hidden whitespace-nowrap border-y-2 border-black bg-brutal-lime py-2 ${className}`}>
+    <div className={`overflow-hidden whitespace-nowrap border-y-2 border-black dark:border-white bg-brutal-lime py-2 text-black transition-colors ${className}`}>
       <motion.div
         className="inline-block"
         animate={{ x: direction === 'left' ? "-50%" : "0%" }}
@@ -17,7 +17,7 @@ const Marquee: React.FC<MarqueeProps> = ({ text, direction = 'left', className =
         transition={{
           repeat: Infinity,
           ease: "linear",
-          duration: 10,
+          duration: 15,
         }}
       >
         <span className="text-4xl font-black mx-4 uppercase tracking-tighter">{text}</span>
