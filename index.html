@@ -49,6 +49,7 @@
           'bg-brutal-yellow',
           'bg-brutal-bg',
           'bg-brutal-black',
+          'bg-brutal-cyan-deep',
           'text-brutal-lime',
           'stroke-brutal-lime',
           'hover:bg-brutal-lime',
@@ -56,6 +57,8 @@
           'hover:bg-brutal-blue-electric',
           'hover:bg-brutal-orange-hot',
           'hover:text-brutal-lime',
+          'focus:bg-brutal-cyan-deep',
+          'focus:bg-brutal-pink-neon',
           'dark:bg-black',
           'dark:text-white',
           'dark:border-white',
@@ -103,6 +106,25 @@
       ::-webkit-scrollbar-thumb:hover {
         background: #66ff00;
       }
+
+      .brutal-scrollbar::-webkit-scrollbar {
+        width: 8px;
+      }
+      .brutal-scrollbar::-webkit-scrollbar-track {
+        background: #eee;
+        border-left: 1px solid #000;
+      }
+      .dark .brutal-scrollbar::-webkit-scrollbar-track {
+        background: #1a1a1a;
+        border-left: 1px solid #fff;
+      }
+      .brutal-scrollbar::-webkit-scrollbar-thumb {
+        background: #000;
+      }
+      .dark .brutal-scrollbar::-webkit-scrollbar-thumb {
+        background: #fff;
+      }
+
       ::selection {
         background: #000;
         color: #66ff00;
@@ -112,18 +134,21 @@
         color: #000;
       }
 
-      /* Basic utility overrides */
       .bg-brutal-lime { background-color: #66ff00 !important; }
       .bg-brutal-pink-neon { background-color: #ff1493 !important; }
       .bg-brutal-blue-electric { background-color: #0066ff !important; }
       .bg-brutal-orange-hot { background-color: #ff3300 !important; }
       .bg-brutal-yellow { background-color: #ffff00 !important; }
+      .bg-brutal-cyan-deep { background-color: #00ffcc !important; }
       
       .hover\:bg-brutal-lime:hover { background-color: #66ff00 !important; color: #000000 !important; }
       .hover\:bg-brutal-pink-neon:hover { background-color: #ff1493 !important; color: #ffffff !important; }
       .hover\:bg-brutal-blue-electric:hover { background-color: #0066ff !important; color: #ffffff !important; }
       .hover\:bg-brutal-orange-hot:hover { background-color: #ff3300 !important; color: #ffffff !important; }
       .hover\:text-brutal-lime:hover { color: #66ff00 !important; }
+
+      .focus\:bg-brutal-cyan-deep:focus { background-color: #00ffcc !important; color: #000000 !important; }
+      .focus\:bg-brutal-pink-neon:focus { background-color: #ff1493 !important; color: #ffffff !important; }
 
       .text-brutal-lime { color: #66ff00 !important; }
       .stroke-brutal-lime { stroke: #66ff00 !important; }
@@ -136,6 +161,7 @@
     "react/": "https://esm.sh/react@^19.2.3/",
     "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
     "framer-motion": "https://esm.sh/framer-motion@^12.25.0",
+    "react-router-dom": "https://esm.sh/react-router-dom@^6.22.3",
     "vite": "https://esm.sh/vite@^7.3.1",
     "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2",
     "url": "https://esm.sh/url@^0.11.4",

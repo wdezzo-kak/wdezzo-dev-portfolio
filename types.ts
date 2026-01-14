@@ -23,3 +23,12 @@ export interface NavItem {
   label: string;
   href: string;
 }
+
+export interface Testimonial {
+  id: string;
+  name: string;
+  role?: string;
+  message: string;
+  color: string;
+  rating: number;
+}

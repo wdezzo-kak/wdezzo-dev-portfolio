@@ -1,10 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { PROJECTS } from '../constants';
 import { ExternalLink, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const Projects: React.FC = () => {
+interface ProjectsProps {
+  onInteract?: (projectId: string) => void;
+}
+
+const Projects: React.FC<ProjectsProps> = ({ onInteract }) => {
   const [activeDemo, setActiveDemo] = useState<string | null>(null);
+
+  // Randomize the order of projects on initial load
+  const randomizedProjects = useMemo(() => {
+    return [...PROJECTS].sort(() => Math.random() - 0.5);
+  }, []);
 
   useEffect(() => {
     if (activeDemo) {
@@ -16,6 +25,12 @@ const Projects: React.FC = () => {
       document.body.style.overflow = '';
     };
   }, [activeDemo]);
+
+  const handleDemoOpen = (projectId: string, demoUrl: string) => {
+    setActiveDemo(demoUrl);
+    // Explicitly track the interaction on click
+    if (onInteract) onInteract(projectId);
+  };
 
   return (
     <section id="work" className="py-20 border-b-4 border-black dark:border-white bg-white dark:bg-brutal-black transition-colors duration-300">
@@ -80,7 +95,7 @@ const Projects: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          {PROJECTS.map((project, index) => {
+          {randomizedProjects.map((project, index) => {
             const hoverColorClass = `hover:${project.color}`;
             
             return (
@@ -99,9 +114,7 @@ const Projects: React.FC = () => {
                     className="w-full h-full object-cover transition-all duration-500 filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
-                  <div className="absolute top-0 left-0 bg-black dark:bg-white text-white dark:text-black px-4 py-2 font-mono text-xl font-bold border-r-4 border-b-4 border-white dark:border-black">
-                    {project.id}
-                  </div>
+                  {/* Visual ID Badge Removed as per user request */}
                 </div>
 
                 <div className="p-6 flex flex-col flex-grow relative overflow-hidden">
@@ -134,7 +147,7 @@ const Projects: React.FC = () => {
 
                     <div className="flex gap-4">
                       <button 
-                        onClick={() => setActiveDemo(project.demoUrl)} 
+                        onClick={() => handleDemoOpen(project.id, project.demoUrl)} 
                         className={`flex-1 flex items-center justify-center gap-2 bg-white dark:bg-black text-black dark:text-white border-2 border-black dark:border-white py-3 font-bold transition-all duration-150 active:translate-y-1 active:shadow-none ${hoverColorClass} hover:text-white dark:hover:text-black`}
                       >
                          <ExternalLink size={18} /> LIVE DEMO
