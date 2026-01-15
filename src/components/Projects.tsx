@@ -114,7 +114,6 @@ const Projects: React.FC<ProjectsProps> = ({ onInteract }) => {
                     className="w-full h-full object-cover transition-all duration-500 filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
-                  {/* Visual ID Badge Removed as per user request */}
                 </div>
 
                 <div className="p-6 flex flex-col flex-grow relative overflow-hidden">
@@ -148,7 +147,7 @@ const Projects: React.FC<ProjectsProps> = ({ onInteract }) => {
                     <div className="flex gap-4">
                       <button 
                         onClick={() => handleDemoOpen(project.id, project.demoUrl)} 
-                        className={`flex-1 flex items-center justify-center gap-2 bg-white dark:bg-black text-black dark:text-white border-2 border-black dark:border-white py-3 font-bold transition-all duration-150 active:translate-y-1 active:shadow-none ${hoverColorClass} hover:text-white dark:hover:text-black`}
+                        className={`flex-1 flex items-center justify-center gap-2 bg-white dark:bg-black text-black dark:text-white border-2 border-black dark:border-white py-3 font-bold transition-all duration-150 active:translate-y-1 active:shadow-none ${hoverColorClass} dark:${hoverColorClass} hover:text-black dark:hover:text-black`}
                       >
                          <ExternalLink size={18} /> LIVE DEMO
                       </button>
