@@ -71,7 +71,7 @@ const Hero: React.FC = () => {
               <a 
                 href="#work" 
                 onClick={(e) => handleScroll(e, '#work')}
-                className="inline-flex items-center text-2xl font-black bg-black dark:bg-white text-white dark:text-black px-8 py-4 border-2 border-transparent hover:bg-brutal-lime hover:text-black hover:border-black dark:hover:border-white hover:shadow-hard dark:hover:shadow-hard-white transition-all duration-200 group"
+                className="inline-flex items-center text-2xl font-black bg-black dark:bg-white text-white dark:text-black px-8 py-4 border-2 border-transparent hover:bg-brutal-lime dark:hover:bg-brutal-lime  hover:text-black hover:border-black dark:hover:border-white hover:shadow-hard dark:hover:shadow-hard-white transition-all duration-200 group"
               >
                 VIEW WORK
                 <ArrowDownRight className="ml-4 group-hover:rotate-45 transition-transform duration-200" size={32} />
