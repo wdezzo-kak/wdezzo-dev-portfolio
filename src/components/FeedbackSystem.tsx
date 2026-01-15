@@ -206,7 +206,7 @@ export default function FeedbackSystem({ metadata }: FeedbackSystemProps) {
                               onMouseLeave={() => setHoverRating(0)}
                               onClick={() => setRating(star)}
                               className={`w-10 h-10 border-2 border-black transition-all transform active:scale-95 ${
-                                (hoverRating || rating) >= star ? 'bg-black shadow-hard-white' : 'bg-white'
+                                (hoverRating || rating) >= star ? 'bg-brutal-yellow shadow-hard' : 'bg-white'
                               }`}
                             />
                           ))}
