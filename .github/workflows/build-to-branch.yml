@@ -48,3 +48,4 @@ jobs:
           git add .
           git commit -m "Clean build output"
           git push -f origin build
+          
