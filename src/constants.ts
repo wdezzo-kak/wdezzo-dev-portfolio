@@ -1,5 +1,13 @@
+
 import { Project, Skill, NavItem, Testimonial } from './types';
 import { FileCode, Palette, Terminal, Layout,  MonitorSmartphone, Component } from 'lucide-react';
+
+// --- BACKEND & SECURITY ---
+export const CONFIG = {
+  GOOGLE_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbwzoOS3t7HIUqgjpAEAKC2LnBlwgivJPwZIhduvbBrsn03S_QWHBuNnctDskoAk8HXl/exec',
+  CONTACT_EMAIL: 'abdalla.izzeldin98@gmail.com',
+  ADMIN_KEY: 'WDEZZO_ADMIN_2025' // Change this for your session access
+};
 
 export const NAV_ITEMS: NavItem[] = [
   { label: 'WORK', href: '#work' },
@@ -8,17 +16,27 @@ export const NAV_ITEMS: NavItem[] = [
   { label: 'CONTACT', href: '#contact' },
 ];
 
-export const SKILLS: Skill[] = [
-  { name: 'HTML5', level: 'SEMANTIC', icon: FileCode },
-  { name: 'CSS3', level: 'VISUAL', icon: Palette },
-  { name: 'JavaScript', level: 'INTERACTIVE', icon: Terminal },
-  { name: 'Bootstrap', level: 'FRAMEWORK', icon: Layout },
-  { name: 'Tailwind', level: 'UTILITY', icon: Component },
-  { name: 'Responsive', level: 'ADAPTIVE', icon: MonitorSmartphone },
+export const DEFAULT_SKILLS: Skill[] = [
+  { name: 'HTML5', level: 'SEMANTIC' },
+  { name: 'CSS3', level: 'VISUAL' },
+  { name: 'JavaScript', level: 'INTERACTIVE' },
+  { name: 'Bootstrap', level: 'FRAMEWORK' },
+  { name: 'Tailwind', level: 'UTILITY' },
+  { name: 'Responsive', level: 'ADAPTIVE' },
 ];
 
-export const PROJECTS: Project[] = [
-  {
+// Map skill names back to icons for display
+export const SKILL_ICONS: Record<string, any> = {
+  'HTML5': FileCode,
+  'CSS3': Palette,
+  'JavaScript': Terminal,
+  'Bootstrap': Layout,
+  'Tailwind': Component,
+  'Responsive': MonitorSmartphone,
+};
+
+export const DEFAULT_PROJECTS: Project[] = [
+   {
     "id": "01",
     "title": "AHMED_BIN_BAKHIT",
     "category": "LANDING PAGE",
@@ -223,7 +241,8 @@ export const TESTIMONIALS_SAFELIST: Testimonial[] = [
     role: 'TECH_LEAD @ SKYNET',
     message: "The efficiency of the landing pages built here is unmatched. Clean, aggressive code that just works.",
     color: 'bg-brutal-yellow',
-    rating: 5
+    rating: 5,
+    show_in_testimonials: true
   },
   {
     id: 'r4v7n2q9w5',
@@ -231,22 +250,10 @@ export const TESTIMONIALS_SAFELIST: Testimonial[] = [
     role: 'FOUNDER @ TURBO_UI',
     message: "Finally a developer who understands that speed and aesthetics aren't mutually exclusive. High impact delivery.",
     color: 'bg-brutal-cyan-deep',
-    rating: 4
-  },
-  {
-    id: 'm1j8b3l6k0',
-    name: 'ELARA_VOX',
-    role: 'CREATIVE_DIR @ NEON_LABS',
-    message: "The neobrutalist approach took our brand to a whole new level of visibility. Bold design for bold brands.",
-    color: 'bg-brutal-pink-neon',
-    rating: 5
-  },
-  {
-    id: 'h2g5f9d3s1',
-    name: 'MARCUS_WRIGHT',
-    role: 'CTO @ CYBERDYNE',
-    message: "Production-ready code with a visual edge that dominates the screen. Highly recommended for startups.",
-    color: 'bg-brutal-lime',
-    rating: 5
+    rating: 4,
+    show_in_testimonials: true
   }
 ];
+
+// For the sake of the demo, export icons used in Skills.tsx
+export { FileCode, Palette, Terminal, Layout, MonitorSmartphone, Component };

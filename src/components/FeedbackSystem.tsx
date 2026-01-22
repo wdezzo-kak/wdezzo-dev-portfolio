@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { MessageSquare, X, Send, CheckCircle2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { CONFIG } from '../constants';
 
 interface FeedbackSystemProps {
   metadata: {
@@ -17,6 +18,24 @@ const BRUTAL_COLORS = [
   'bg-brutal-orange-hot', 
   'bg-brutal-yellow', 
   'bg-brutal-cyan-deep'
+];
+
+// Curated list of "Real" roles to choose from randomly if left blank
+const RANDOM_ROLES = [
+  'SOFTWARE_ENGINEER',
+  'PRODUCT_DESIGNER',
+  'TECH_ARCHITECT',
+  'CREATIVE_DIRECTOR',
+  'FOUNDER @ STEALTH_STARTUP',
+  'FULLSTACK_DEV',
+  'UX_RESEARCHER',
+  'DEVOPS_ENGINEER',
+  'PRODUCT_MANAGER',
+  'SYSTEM_ADMIN',
+  'VISUAL_STRATEGIST',
+  'FRONTEND_SPECIALIST',
+  'CTO @ ALPHA_TECH',
+  'OPEN_SOURCE_CONTRIBUTOR'
 ];
 
 const generateBrutalId = () => {
@@ -76,22 +95,30 @@ export default function FeedbackSystem({ metadata }: FeedbackSystemProps) {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
-    const bodyData = {
-      'form-name': 'visitor-feedback',
-      name: name || 'ANONYMOUS_ENTITY',
-      role: role || 'ROUND ONE',
-      rating: rating.toString(),
+    // Pick a random real role if the user didn't specify one
+    const finalRole = role.trim() !== '' 
+      ? role.toUpperCase() 
+      : RANDOM_ROLES[Math.floor(Math.random() * RANDOM_ROLES.length)];
+
+    // Clean data for Google Sheets
+    const payload = {
+      id: submissionId,
+      name: name.trim() || 'ANONYMOUS_ENTITY',
+      role: finalRole,
+      rating: rating,
       opinion: opinion,
-      submission_id: submissionId,
       origin_section: metadata.currentSection,
-      project_history: metadata.projectHistory.join(', ')
+      project_history: metadata.projectHistory.join(', '),
+      show_in_testimonials: false, // Default to hidden - only you can enable in sheet
     };
 
     try {
-      await fetch("/", {
+      // POST to Google Apps Script
+      await fetch(CONFIG.GOOGLE_SCRIPT_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(bodyData as any).toString(),
+        mode: 'no-cors',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
       });
 
       setIsSubmitted(true);
@@ -110,6 +137,7 @@ export default function FeedbackSystem({ metadata }: FeedbackSystemProps) {
       }, 3000);
     } catch (error) {
       console.error("Submission failed:", error);
+      alert("DATA_LINK_FAILURE. CHECK CONSOLE.");
     }
   };
 
@@ -119,7 +147,7 @@ export default function FeedbackSystem({ metadata }: FeedbackSystemProps) {
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 z-[110] w-14 h-14 bg-brutal-yellow dark:bg-brutal-lime border-4 border-black dark:border-white shadow-hard-lg dark:shadow-hard-white-lg hover:shadow-hard dark:hover:shadow-hard-white transition-all flex items-center justify-center text-black cursor-pointer group active:translate-x-1 active:translate-y-1 active:shadow-none"
+        className="fixed bottom-6 right-6 z-[5110] w-14 h-14 bg-brutal-yellow dark:bg-brutal-purple border-4 border-black dark:border-white shadow-hard dark:shadow-hard-white  transition-all flex items-center justify-center text-black cursor-pointer group active:translate-x-1 active:translate-y-1 active:shadow-none"
       >
         <AnimatePresence mode="wait">
           {isOpen ? (
@@ -140,7 +168,7 @@ export default function FeedbackSystem({ metadata }: FeedbackSystemProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-black/40 sm:bg-transparent backdrop-blur-sm sm:backdrop-blur-none flex items-center justify-center sm:block p-4"
+            className="fixed inset-0 z-[5100] bg-black/40 sm:bg-transparent backdrop-blur-sm sm:backdrop-blur-none flex items-center justify-center sm:block p-4"
             onClick={() => setIsOpen(false)}
           >
             <motion.div
@@ -157,7 +185,7 @@ export default function FeedbackSystem({ metadata }: FeedbackSystemProps) {
                       <CheckCircle2 size={48} className="text-black" />
                     </motion.div>
                     <h3 className="text-3xl font-black uppercase tracking-tighter mb-2 text-black">DATA_RECEIVED</h3>
-                    <p className="font-mono text-sm text-black/70 italic">SYNC_TO_FEED_INITIATED</p>
+                    <p className="font-mono text-sm text-black/70 italic">SYNC_TO_SHEET_INITIATED</p>
                   </div>
                 ) : (
                   <>
@@ -167,8 +195,6 @@ export default function FeedbackSystem({ metadata }: FeedbackSystemProps) {
                     </div>
 
                     <form name="visitor-feedback" onSubmit={handleSubmit} className="space-y-4">
-                      <input type="hidden" name="form-name" value="visitor-feedback" />
-                      
                       <div className="grid grid-cols-1 gap-4">
                         <div>
                           <label className="block font-black uppercase text-xs mb-1 text-black">Identity</label>
@@ -178,7 +204,7 @@ export default function FeedbackSystem({ metadata }: FeedbackSystemProps) {
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                             placeholder="NAME / ALIAS"
-                            className="w-full bg-white border-2 border-black p-2 font-mono text-sm focus:bg-black focus:text-white focus:outline-none transition-colors"
+                            className="w-full bg-white dark:bg-neutral-800 border-2 border-black p-2 font-mono text-sm focus:bg-black focus:text-white focus:outline-none transition-colors"
                           />
                         </div>
                         
@@ -189,8 +215,8 @@ export default function FeedbackSystem({ metadata }: FeedbackSystemProps) {
                             name="role"
                             value={role}
                             onChange={(e) => setRole(e.target.value)}
-                            placeholder="CEO / DEV / GHOST"
-                            className="w-full bg-white border-2 border-black p-2 font-mono text-sm focus:bg-black focus:text-white focus:outline-none transition-colors"
+                            placeholder="BLANK = RANDOM_ROLE"
+                            className="w-full bg-white dark:bg-neutral-800 border-2 border-black p-2 font-mono text-sm focus:bg-black focus:text-white focus:outline-none transition-colors"
                           />
                         </div>
                       </div>
@@ -222,7 +248,7 @@ export default function FeedbackSystem({ metadata }: FeedbackSystemProps) {
                           value={opinion}
                           onChange={(e) => setOpinion(e.target.value)}
                           placeholder="INPUT_FEEDBACK_HERE..."
-                          className="w-full bg-white border-2 border-black p-2 font-mono text-sm focus:bg-black focus:text-white focus:outline-none transition-colors"
+                          className="w-full bg-white dark:bg-neutral-800 border-2 border-black p-2 font-mono text-sm focus:bg-black focus:text-white focus:outline-none transition-colors"
                         ></textarea>
                       </div>
 

@@ -1,7 +1,15 @@
-import React from 'react';
-import { SKILLS } from '../constants';
 
-const Skills: React.FC = () => {
+import React from 'react';
+import { DEFAULT_SKILLS, SKILL_ICONS } from '../constants';
+import { Skill } from '../types';
+
+interface SkillsProps {
+  dynamicSkills?: Skill[];
+}
+
+const Skills: React.FC<SkillsProps> = ({ dynamicSkills }) => {
+  const skillsToDisplay = dynamicSkills || DEFAULT_SKILLS;
+
   return (
     <section id="stack" className="py-20 bg-[#f0f0f0] dark:bg-neutral-900 border-b-4 border-black dark:border-white transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -15,8 +23,8 @@ const Skills: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-0 border-2 border-black dark:border-white">
-          {SKILLS.map((skill) => {
-            const Icon = skill.icon;
+          {skillsToDisplay.map((skill) => {
+            const Icon = SKILL_ICONS[skill.name];
             return (
               <div 
                 key={skill.name} 
