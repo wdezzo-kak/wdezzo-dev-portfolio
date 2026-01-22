@@ -53,7 +53,7 @@ const Hero: React.FC = () => {
               transition={{ type: "spring", stiffness: 400, damping: 30 }}
              >
                <h2 className="font-mono text-lg md:text-2xl font-black mb-6 bg-brutal-lime text-black inline-block px-3 py-1 border-2 border-black dark:border-white shadow-hard">
-                 FRONTEND_ARCHITECT // 2025
+                 FRONTEND_DEVELOPER
                </h2>
              </motion.div>
              
@@ -74,7 +74,7 @@ const Hero: React.FC = () => {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.3, duration: 0.4 }}
             >
-              Transforming complex technical requirements into aggressive, high-performance web interfaces that refuse to be ignored.
+              Specializing in responsive, high-impact web interfaces. I turn designs into clean, semantic code using modern CSS and JS.
             </motion.p>
 
             <motion.div
@@ -87,7 +87,7 @@ const Hero: React.FC = () => {
                 onClick={(e) => handleScroll(e, '#work')}
                 className="inline-flex items-center text-xl md:text-2xl font-black bg-black dark:bg-white text-white dark:text-black px-10 py-5 border-2 border-transparent hover:bg-brutal-lime dark:hover:bg-brutal-lime hover:text-black hover:border-black dark:hover:border-white shadow-hard dark:shadow-hard-white hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all duration-200 group"
               >
-                DEPLOY_VIEWPORT
+                VIEW_WORK
                 <ArrowDownRight className="ml-4 group-hover:rotate-45 transition-transform duration-200" size={32} strokeWidth={3} />
               </a>
             </motion.div>
@@ -102,9 +102,9 @@ const Hero: React.FC = () => {
             >
                 <div className="absolute inset-0 bg-brutal-blue-electric opacity-10"></div>
                 <div className="text-center transform rotate-12">
-                   <div className="text-9xl font-black opacity-5 select-none text-black dark:text-white">CODE</div>
-                   <div className="text-9xl font-black opacity-5 select-none text-black dark:text-white">RAW</div>
-                   <div className="text-9xl font-black opacity-5 select-none text-black dark:text-white">FAST</div>
+                   <div className="text-9xl font-black opacity-5 select-none text-black dark:text-white">HTML</div>
+                   <div className="text-9xl font-black opacity-5 select-none text-black dark:text-white">JS  JS</div>
+                   <div className="text-9xl font-black opacity-5 select-none text-black dark:text-white">CSS</div>
                 </div>
                 <div className="absolute inset-0 flex items-center justify-center">
                     <div className="text-center font-mono font-black bg-white dark:bg-black border-4 border-black dark:border-white p-6 shadow-hard dark:shadow-hard-white text-black dark:text-white transform -rotate-3 hover:rotate-0 transition-transform cursor-crosshair">
