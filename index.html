@@ -1,9 +1,35 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BRUTAL_DEV</title>
+    
+    <!-- Primary Meta Tags -->
+    <title>WDEZZO_DEV | High-Impact Frontend Developer Portfolio</title>
+    <meta name="title" content="WDEZZO_DEV | High-Impact Frontend Developer Portfolio" />
+    <meta name="description" content="Professional neobrutalist portfolio of a frontend developer specializing in high-performance landing pages, responsive UI development, and aggressive web aesthetics." />
+    <meta name="keywords" content="frontend developer, neobrutalism, web design, portfolio, react developer, tailwind css, landing page expert, UI/UX" />
+    <meta name="author" content="Abdalla Izzeldin" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://wdezzo-dev.pages.dev/" />
+    <meta property="og:title" content="WDEZZO_DEV | High-Impact Frontend Developer Portfolio" />
+    <meta property="og:description" content="High-performance, neobrutalist developer portfolio. Turning complex designs into clean, aggressive, and functional web interfaces." />
+    <meta property="og:image" content="/projects/Al-Haytham_for_Trade_and_Investment/cover.webp" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://wdezzo-dev.pages.dev/" />
+    <meta property="twitter:title" content="WDEZZO_DEV | High-Impact Frontend Developer Portfolio" />
+    <meta property="twitter:description" content="High-performance, neobrutalist developer portfolio. Turning complex designs into clean, aggressive, and functional web interfaces." />
+    <meta property="twitter:image" content="/projects/Al-Haytham_for_Trade_and_Investment/cover.webp" />
+
+    <!-- Favicon (Neobrutalist Command Prompt) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='black'/%3E%3Crect x='2' y='2' width='28' height='28' fill='none' stroke='%2366ff00' stroke-width='3'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-weight='900' font-size='18' fill='%2366ff00'%3E%3E_%3C/text%3E%3C/svg%3E" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Space+Grotesk:wght@400;700;900&display=swap" rel="stylesheet">
@@ -50,12 +76,18 @@
           'bg-brutal-bg',
           'bg-brutal-black',
           'bg-brutal-cyan-deep',
+          'bg-brutal-magenta-dark',
           'text-brutal-lime',
           'stroke-brutal-lime',
           'hover:bg-brutal-lime',
           'hover:bg-brutal-pink-neon',
           'hover:bg-brutal-blue-electric',
           'hover:bg-brutal-orange-hot',
+          'hover:bg-brutal-cyan-deep',
+          'hover:bg-brutal-yellow',
+          'hover:bg-brutal-magenta-dark',
+          'hover:text-black',
+          'hover:text-white',
           'hover:text-brutal-lime',
           'focus:bg-brutal-cyan-deep',
           'focus:bg-brutal-pink-neon',
@@ -133,25 +165,11 @@
         background: #66ff00;
         color: #000;
       }
-
-      .bg-brutal-lime { background-color: #66ff00 !important; }
-      .bg-brutal-pink-neon { background-color: #ff1493 !important; }
-      .bg-brutal-blue-electric { background-color: #0066ff !important; }
-      .bg-brutal-orange-hot { background-color: #ff3300 !important; }
-      .bg-brutal-yellow { background-color: #ffff00 !important; }
-      .bg-brutal-cyan-deep { background-color: #00ffcc !important; }
       
-      .hover\:bg-brutal-lime:hover { background-color: #66ff00 !important; color: #000000 !important; }
-      .hover\:bg-brutal-pink-neon:hover { background-color: #ff1493 !important; color: #ffffff !important; }
-      .hover\:bg-brutal-blue-electric:hover { background-color: #0066ff !important; color: #ffffff !important; }
-      .hover\:bg-brutal-orange-hot:hover { background-color: #ff3300 !important; color: #ffffff !important; }
-      .hover\:text-brutal-lime:hover { color: #66ff00 !important; }
-
-      .focus\:bg-brutal-cyan-deep:focus { background-color: #00ffcc !important; color: #000000 !important; }
-      .focus\:bg-brutal-pink-neon:focus { background-color: #ff1493 !important; color: #ffffff !important; }
-
-      .text-brutal-lime { color: #66ff00 !important; }
-      .stroke-brutal-lime { stroke: #66ff00 !important; }
+      .stroke-text {
+        -webkit-text-stroke-width: 2px;
+        -webkit-text-stroke-color: currentColor;
+      }
     </style>
   <script type="importmap">
 {
@@ -172,6 +190,6 @@
 </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/index.tsx"></script>
+    <script type="module" src="/src/index.tsx"></script>
   </body>
 </html>

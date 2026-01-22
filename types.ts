@@ -1,3 +1,4 @@
+
 import { LucideIcon } from 'lucide-react';
 
 export interface Project {
@@ -24,6 +25,7 @@ export interface NavItem {
   href: string;
 }
 
+// Added show_in_testimonials property to resolve type mismatch in constants.ts
 export interface Testimonial {
   id: string;
   name: string;
@@ -31,4 +33,5 @@ export interface Testimonial {
   message: string;
   color: string;
   rating: number;
+  show_in_testimonials?: boolean;
 }

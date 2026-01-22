@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Send, CheckCircle2, AlertTriangle, RefreshCcw } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { CONFIG } from '../constants';
 
 const Contact: React.FC = () => {
   const [status, setStatus] = useState<'IDLE' | 'SUBMITTING' | 'SUCCESS' | 'ERROR'>('IDLE');
@@ -18,19 +19,15 @@ const Contact: React.FC = () => {
     e.preventDefault();
     setStatus('SUBMITTING');
 
-    // Netlify Forms requires data to be URL encoded
-    const bodyData = {
-      'form-name': 'contact-v1',
-      ...formData
-    };
-
-    const encodedData = new URLSearchParams(bodyData as any).toString();
-
     try {
-      const response = await fetch("/", {
+      // Use FormSubmit.io AJAX endpoint
+      const response = await fetch(`https://formsubmit.co/ajax/${CONFIG.CONTACT_EMAIL}`, {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: encodedData,
+        headers: { 
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify(formData),
       });
 
       if (response.ok) {
@@ -72,7 +69,7 @@ const Contact: React.FC = () => {
                   TRANSMISSION<br/>COMPLETE
                 </h2>
                 <p className="font-mono text-xl text-black dark:text-white mb-8 italic bg-black dark:bg-white text-white dark:text-black inline-block px-4 py-2">
-                  STATUS: NETLIFY_LOG_SAVED
+                  STATUS: FORMSUBMIT_LOG_SAVED
                 </p>
                 <div>
                   <button 
@@ -97,7 +94,7 @@ const Contact: React.FC = () => {
                   UPLINK<br/>FAILURE
                 </h2>
                 <p className="font-mono text-xl text-black dark:text-white mb-8 italic">
-                  ERROR_CODE: NETLIFY_POST_REJECTED
+                  ERROR_CODE: FORMSUBMIT_REJECTED
                 </p>
                 <button 
                   onClick={() => setStatus('IDLE')}
@@ -118,16 +115,7 @@ const Contact: React.FC = () => {
                   <p className="font-mono text-xl text-black dark:text-white">Let's build something aggressive.</p>
                 </div>
 
-                {/* Netlify Form identifier */}
-                <form 
-                  name="contact-v1" 
-                  method="POST" 
-                  data-netlify="true"
-                  className="space-y-8" 
-                  onSubmit={handleSubmit}
-                >
-                  <input type="hidden" name="form-name" value="contact-v1" />
-                  
+                <form className="space-y-8" onSubmit={handleSubmit}>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="space-y-2">
                       <label className="block font-black uppercase text-lg text-black dark:text-white">Identity</label>
@@ -138,7 +126,7 @@ const Contact: React.FC = () => {
                         value={formData.name}
                         onChange={handleChange}
                         placeholder="NAME OR ALIAS" 
-                        className="w-full bg-[#f0f0f0] dark:bg-neutral-800 border-2 border-black dark:border-white p-4 font-mono focus:outline-none focus:bg-brutal-blue-electric dark:focus:bg-brutal-blue-electric focus:text-white focus:shadow-hard dark:focus:shadow-hard-white transition-all placeholder-gray-500 dark:text-white"
+                        className="w-full bg-[#f0f0f0] dark:bg-neutral-800 border-2 border-black dark:border-white p-4 font-mono focus:outline-none  focus:text-white focus:shadow-hard dark:focus:shadow-hard-white transition-all placeholder-gray-500 dark:text-white"
                       />
                     </div>
                     <div className="space-y-2">
@@ -150,7 +138,7 @@ const Contact: React.FC = () => {
                         value={formData.email}
                         onChange={handleChange}
                         placeholder="EMAIL ADDRESS" 
-                        className="w-full bg-[#f0f0f0] dark:bg-neutral-800 border-2 border-black dark:border-white p-4 font-mono focus:outline-none focus:bg-brutal-blue-electric dark:focus:bg-brutal-blue-electric focus:text-white focus:shadow-hard dark:focus:shadow-hard-white transition-all placeholder-gray-500 dark:text-white"
+                        className="w-full bg-[#f0f0f0] dark:bg-neutral-800 border-2 border-black dark:border-white p-4 font-mono focus:outline-none  focus:text-white focus:shadow-hard dark:focus:shadow-hard-white transition-all placeholder-gray-500 dark:text-white"
                       />
                     </div>
                   </div>
@@ -164,7 +152,7 @@ const Contact: React.FC = () => {
                       onChange={handleChange}
                       rows={5} 
                       placeholder="YOUR MESSAGE HERE..." 
-                      className="w-full bg-[#f0f0f0] dark:bg-neutral-800 border-2 border-black dark:border-white p-4 font-mono focus:outline-none focus:bg-brutal-blue-electric dark:focus:bg-brutal-blue-electric focus:text-white focus:shadow-hard dark:focus:shadow-hard-white transition-all placeholder-gray-500 dark:text-white"
+                      className="w-full bg-[#f0f0f0] dark:bg-neutral-800 border-2 border-black dark:border-white p-4 font-mono focus:outline-none focus:text-white focus:shadow-hard dark:focus:shadow-hard-white transition-all placeholder-gray-500 dark:text-white"
                     ></textarea>
                   </div>
 
