@@ -9,6 +9,17 @@ interface ProjectsProps {
   onInteract?: (projectId: string) => void;
   dynamicProjects?: Project[];
 }
+const withBase = (path: string): string => {
+  if (!path) return path;
+
+  // Leave external URLs unchanged
+  if (/^(https?:)?\/\//.test(path)) {
+    return path;
+  }
+
+  return `${import.meta.env.BASE_URL}${path.replace(/^\/+/, '')}`;
+};
+
 
 const Projects: React.FC<ProjectsProps> = ({ onInteract, dynamicProjects }) => {
   const [activeDemo, setActiveDemo] = useState<string | null>(null);
@@ -42,12 +53,12 @@ const Projects: React.FC<ProjectsProps> = ({ onInteract, dynamicProjects }) => {
   const handleDemoOpen = (projectId: string, demoUrl: string) => {
     if (onInteract) onInteract(projectId);
     if (!demoUrl || demoUrl === '#' || demoUrl.trim() === '') {
-      setActiveDemo('/projects/notfound.html?url=UNDEFINED_RESOURCE');
+      setActiveDemo(withBase('projects/notfound.html?url=UNDEFINED_RESOURCE'));
       setIsLoading(true);
       return;
     }
     setIsLoading(true);
-    setActiveDemo(demoUrl);
+    setActiveDemo(withBase(demoUrl));
     setTimeout(() => setIsLoading(false), 5000);
   };
 
@@ -136,7 +147,7 @@ const Projects: React.FC<ProjectsProps> = ({ onInteract, dynamicProjects }) => {
             >
               <div className="relative aspect-video border-b-4 border-black dark:border-white overflow-hidden bg-gray-100 dark:bg-neutral-900">
                 <img 
-                  src={project.imageUrl || 'https://via.placeholder.com/600x400/000000/66ff00?text=NO_IMAGE'} 
+                  src={withBase(project.imageUrl) || 'https://via.placeholder.com/600x400/000000/66ff00?text=NO_IMAGE'} 
                   alt={project.title} 
                   className="w-full h-full object-cover transition-all duration-500 filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105"
                 />
