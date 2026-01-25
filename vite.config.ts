@@ -9,6 +9,9 @@ const __dirname = path.dirname(__filename);
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
     return {
+        // Set 'base' to './' to ensure assets are loaded relative to the index.html.
+      // If deploying to a specific subpath (e.g. GitHub Pages), change this to '/your-repo-name/'.
+      base: '/wdezzo-dev-portfolio',
       server: {
         port: 3000,
         host: '0.0.0.0',
