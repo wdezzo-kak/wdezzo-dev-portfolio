@@ -17,7 +17,7 @@ const withBase = (path: string): string => {
     return path;
   }
 
-  return `${import.meta.env.BASE_URL}${path.replace(/^\/+/, '')}`;
+  return `${'/wdezzo-dev-portfolio/'}${path.replace(/^\/+/, '')}`;
 };
 
 
