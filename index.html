@@ -1,0 +1,196 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Primary Meta Tags -->
+    <title>WDEZZO_DEV | High-Impact Frontend Developer Portfolio</title>
+    <meta name="title" content="WDEZZO_DEV | High-Impact Frontend Developer Portfolio" />
+    <meta name="description" content="Professional neobrutalist portfolio of a frontend developer specializing in high-performance landing pages, responsive UI development, and aggressive web aesthetics." />
+    <meta name="keywords" content="frontend developer, neobrutalism, web design, portfolio, react developer, tailwind css, landing page expert, UI/UX" />
+    <meta name="author" content="Abdalla Izzeldin" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://wdezzo-dev.pages.dev/" />
+    <meta property="og:title" content="WDEZZO_DEV | High-Impact Frontend Developer Portfolio" />
+    <meta property="og:description" content="High-performance, neobrutalist developer portfolio. Turning complex designs into clean, aggressive, and functional web interfaces." />
+    <meta property="og:image" content="/wdezzo-dev-portfolio/projects/Al-Haytham_for_Trade_and_Investment/cover.webp" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://wdezzo-dev.pages.dev/" />
+    <meta property="twitter:title" content="WDEZZO_DEV | High-Impact Frontend Developer Portfolio" />
+    <meta property="twitter:description" content="High-performance, neobrutalist developer portfolio. Turning complex designs into clean, aggressive, and functional web interfaces." />
+    <meta property="twitter:image" content="/projects/Al-Haytham_for_Trade_and_Investment/cover.webp" />
+
+    <!-- Favicon (Neobrutalist Command Prompt) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='black'/%3E%3Crect x='2' y='2' width='28' height='28' fill='none' stroke='%2366ff00' stroke-width='3'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-weight='900' font-size='18' fill='%2366ff00'%3E%3E_%3C/text%3E%3C/svg%3E" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Space+Grotesk:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['"Space Grotesk"', 'sans-serif'],
+              mono: ['"JetBrains Mono"', 'monospace'],
+            },
+            colors: {
+              'brutal-bg': '#f0f0f0',
+              'brutal-black': '#121212',
+              'brutal-yellow': '#ffff00',
+              'brutal-red': '#ff0000',
+              'brutal-purple': '#7f00ff',
+              'brutal-lime': '#66ff00',
+              'brutal-cyan-deep': '#00ffcc',
+              'brutal-magenta-dark': '#cc00cc',
+              'brutal-orange-hot': '#ff3300',
+              'brutal-blue-electric': '#0066ff',
+              'brutal-green-toxic': '#00ff66',
+              'brutal-pink-neon': '#ff1493'
+            },
+            boxShadow: {
+              'hard': '4px 4px 0px 0px #000000',
+              'hard-lg': '8px 8px 0px 0px #000000',
+              'hard-xl': '12px 12px 0px 0px #000000',
+              'hard-white': '4px 4px 0px 0px #ffffff',
+              'hard-white-lg': '8px 8px 0px 0px #ffffff',
+              'hard-white-xl': '12px 12px 0px 0px #ffffff',
+            }
+          }
+        },
+        safelist: [
+          'bg-brutal-lime',
+          'bg-brutal-pink-neon',
+          'bg-brutal-blue-electric',
+          'bg-brutal-orange-hot',
+          'bg-brutal-yellow',
+          'bg-brutal-bg',
+          'bg-brutal-black',
+          'bg-brutal-cyan-deep',
+          'bg-brutal-magenta-dark',
+          'text-brutal-lime',
+          'stroke-brutal-lime',
+          'hover:bg-brutal-lime',
+          'hover:bg-brutal-pink-neon',
+          'hover:bg-brutal-blue-electric',
+          'hover:bg-brutal-orange-hot',
+          'hover:bg-brutal-cyan-deep',
+          'hover:bg-brutal-yellow',
+          'hover:bg-brutal-magenta-dark',
+          'hover:text-black',
+          'hover:text-white',
+          'hover:text-brutal-lime',
+          'focus:bg-brutal-cyan-deep',
+          'focus:bg-brutal-pink-neon',
+          'dark:bg-black',
+          'dark:text-white',
+          'dark:border-white',
+          'dark:shadow-hard-white'
+        ]
+      }
+    </script>
+    <style>
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 80px;
+        overflow-x: hidden;
+        width: 100%;
+      }
+      body {
+        background-color: #f3f3f3;
+        color: #121212;
+        overflow-x: hidden;
+        width: 100%;
+        transition: background-color 0.3s ease;
+      }
+      body.dark {
+        background-color: #121212;
+        color: #ffffff;
+      }
+      ::-webkit-scrollbar {
+        width: 12px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #ffffff;
+        border-left: 2px solid #000;
+      }
+      .dark ::-webkit-scrollbar-track {
+        background: #121212;
+        border-left: 2px solid #fff;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #000; 
+        border: 2px solid #fff;
+      }
+      .dark ::-webkit-scrollbar-thumb {
+        background: #fff;
+        border: 2px solid #000;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #66ff00;
+      }
+
+      .brutal-scrollbar::-webkit-scrollbar {
+        width: 8px;
+      }
+      .brutal-scrollbar::-webkit-scrollbar-track {
+        background: #eee;
+        border-left: 1px solid #000;
+      }
+      .dark .brutal-scrollbar::-webkit-scrollbar-track {
+        background: #1a1a1a;
+        border-left: 1px solid #fff;
+      }
+      .brutal-scrollbar::-webkit-scrollbar-thumb {
+        background: #000;
+      }
+      .dark .brutal-scrollbar::-webkit-scrollbar-thumb {
+        background: #fff;
+      }
+
+      ::selection {
+        background: #000;
+        color: #66ff00;
+      }
+      .dark ::selection {
+        background: #66ff00;
+        color: #000;
+      }
+      
+      .stroke-text {
+        -webkit-text-stroke-width: 2px;
+        -webkit-text-stroke-color: currentColor;
+      }
+    </style>
+
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+    "framer-motion": "https://esm.sh/framer-motion@^12.25.0",
+    "react-router-dom": "https://esm.sh/react-router-dom@^6.22.3",
+    "vite": "https://esm.sh/vite@^7.3.1",
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2",
+    "url": "https://esm.sh/url@^0.11.4",
+    "path": "https://esm.sh/path@^0.12.7"
+  }
+}
+</script>
+  <script type="module" crossorigin src="/wdezzo-dev-portfolio/assets/index-CdmF_4AO.js"></script>
+</head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
