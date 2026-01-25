@@ -1,51 +1,17 @@
-name: Build to Branch
-
+name: Deploy to GitHub Pages
 on:
   push:
-    branches:
-      - netlifyv2
-
-permissions:
-  contents: write
-
+    branches: [main]
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout source
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build project
-        run: npm run build
-
-      - name: Publish build to branch
+      - uses: actions/checkout@v4
+      - name: Install and Build
         run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-
-          git checkout --orphan build
-          git rm -rf .
-
-          cp -r dist/* .
-          rm -rf dist
-
-          rm -rf netlify netlify.toml || true
-
-          touch .nojekyll
-
-          git add .
-          git commit -m "Clean build output"
-          git push -f origin build
-          
+          npm install
+          npm run build
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist
