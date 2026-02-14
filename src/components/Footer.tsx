@@ -2,15 +2,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Shield } from 'lucide-react';
+import SystemVitals from './SystemVitals';
 
-const Footer: React.FC = () => {
+interface FooterProps {
+  vitals?: {
+    lcp: number;
+    cls: number;
+    fid: number;
+    ttfb: number;
+  };
+}
+
+const Footer: React.FC<FooterProps> = ({ vitals }) => {
   return (
     <footer className="bg-black dark:bg-black text-white pt-12 pb-24 md:pb-16 border-t-4 border-white">
       <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8">
+        {/* BRAND IDENTITY */}
         <div className="text-center md:text-left group relative">
           <h2 className="text-3xl font-black tracking-tighter">WDEZZO_DEV</h2>
           
-          {/* DISCREET ADMIN LINK: Appears on hover of the branding */}
           <Link 
             to="/admin" 
             className="absolute -top-6 left-0 opacity-0 group-hover:opacity-100 transition-opacity bg-brutal-red text-white text-[10px] px-2 py-0.5 font-mono font-bold flex items-center gap-1 shadow-hard"
@@ -23,7 +33,15 @@ const Footer: React.FC = () => {
             <span className="text-[10px] opacity-50">DESIGNED FOR THE AGGRESSIVE WEB.</span>
           </p>
         </div>
+
+        {/* SYSTEM VITALS TELEMETRY - Positioned in the middle */}
+        {vitals && (
+          <div className="order-last md:order-none">
+            <SystemVitals vitals={vitals} />
+          </div>
+        )}
         
+        {/* SOCIAL UPLINKS */}
         <div className="flex flex-wrap justify-center gap-6 md:gap-8 font-mono text-sm font-bold">
           <a 
             href="https://github.com/wdezzo-kak" 
