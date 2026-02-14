@@ -11,16 +11,15 @@ const Marquee: React.FC<MarqueeProps> = ({ text, direction = 'left', className =
   return (
     <div className={`overflow-hidden whitespace-nowrap border-y-2 border-black dark:border-white bg-brutal-lime py-2 text-black transition-colors ${className}`}>
       <motion.div
-        className="inline-block"
-        animate={{ x: direction === 'left' ? "-50%" : "0%" }}
-        initial={{ x: direction === 'left' ? "0%" : "-50%" }}
+        className="inline-block will-change-transform"
+        animate={{ x: direction === 'left' ? "-33.33%" : "0%" }}
+        initial={{ x: direction === 'left' ? "0%" : "-33.33%" }}
         transition={{
           repeat: Infinity,
           ease: "linear",
-          duration: 15,
+          duration: 20,
         }}
       >
-        <span className="text-4xl font-black mx-4 uppercase tracking-tighter">{text}</span>
         <span className="text-4xl font-black mx-4 uppercase tracking-tighter">{text}</span>
         <span className="text-4xl font-black mx-4 uppercase tracking-tighter">{text}</span>
         <span className="text-4xl font-black mx-4 uppercase tracking-tighter">{text}</span>
