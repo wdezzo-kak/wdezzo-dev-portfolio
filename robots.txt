@@ -1,0 +1,23 @@
+#  ___________________________________________
+# |                                           |
+# |   WDEZZO_DEV // ROBOTS_CONTROL_INTERFACE  |
+# |___________________________________________|
+#
+# [SYSTEM_STATUS]: ACTIVE
+# [DESIGN_STYLE]: NEOBRUTALISM
+
+User-agent: *
+
+# ALLOW INDEXING OF CORE ASSETS
+Allow: /
+Allow: /index.html
+Allow: /projects/
+
+# RESTRICT ACCESS TO SIMULATION SHELL (ADMIN)
+Disallow: /admin
+Disallow: /#/admin
+Disallow: /admin/
+Disallow: /public/projects/notfound.html
+
+# COORDINATES
+Sitemap: https://wdezzo-kak.github.io/wdezzo-dev-portfolio/sitemap.xml
