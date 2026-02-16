@@ -10,6 +10,12 @@ const Hero: React.FC = () => {
     if (element) element.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
+  // Keywords for the scattered background
+  const keywords = [
+    'HTML', 'CSS', 'JS', 'BOOTSTRAP', 'TAILWIND', 'UTILITY', 
+    'REACT', 'UI', 'UX', 'DOM', 'API', 'NODE', 'VITE', 'SVG'
+  ];
+
   return (
     <section className="relative w-full min-h-[90vh] flex flex-col justify-center bg-[#f3f3f3] dark:bg-brutal-black overflow-hidden border-b-4 border-black dark:border-white transition-colors duration-300">
       <div className="absolute inset-0 opacity-10 dark:opacity-20 pointer-events-none z-0 will-change-transform" 
@@ -74,9 +80,34 @@ const Hero: React.FC = () => {
               transition={{ delay: 0.4, duration: 0.5 }}
             >
                 <div className="absolute inset-0 bg-brutal-blue-electric opacity-10"></div>
-                <div className="text-center transform rotate-12 opacity-5 font-black text-8xl select-none">HTML JS CSS</div>
+                
+                {/* Extremely Dense Scattered Pattern Background */}
+                <div className="absolute inset-0 select-none pointer-events-none overflow-hidden font-black uppercase opacity-20 dark:opacity-30 flex flex-wrap gap-x-3 gap-y-4 p-2 content-start items-start justify-center rotate-[-5deg] scale-125">
+                  {Array.from({ length: 65 }).map((_, i) => (
+                    <div 
+                      key={i} 
+                      className={`
+                        text-[9px] md:text-xs tracking-tighter
+                        ${i % 7 === 0 ? 'rotate-12 scale-110' : ''}
+                        ${i % 5 === 0 ? '-rotate-12 bg-black text-white px-0.5' : ''}
+                        ${i % 3 === 0 ? 'rotate-45 border border-black px-0.5' : ''}
+                        ${i % 11 === 0 ? 'text-brutal-pink-neon' : ''}
+                        ${i % 13 === 0 ? 'bg-brutal-yellow text-black' : ''}
+                        ${i % 17 === 0 ? 'text-brutal-blue-electric font-mono' : ''}
+                        transform-gpu transition-transform
+                      `}
+                    >
+                      {keywords[i % keywords.length]}
+                    </div>
+                  ))}
+                  {/* Additional layer of larger overlapping words */}
+                  <div className="absolute top-1/4 left-0 text-3xl opacity-10 -rotate-12 border-2 border-black px-2">BOOTSTRAP</div>
+                  <div className="absolute bottom-1/4 right-0 text-4xl opacity-10 rotate-12 bg-brutal-lime text-black px-2">TAILWIND</div>
+                  <div className="absolute top-1/2 left-1/3 text-2xl opacity-10 rotate-90">UTILITY</div>
+                </div>
+
                 <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center font-mono font-black bg-white dark:bg-black border-4 border-black p-6 shadow-hard transform -rotate-3 hover:rotate-0 transition-transform cursor-crosshair">
+                    <div className="text-center font-mono font-black bg-white dark:bg-black border-4 border-black p-6 shadow-hard transform -rotate-3 hover:rotate-0 transition-transform cursor-crosshair z-10">
                         <div className="text-brutal-pink-neon">ROLE: FRONTEND</div>
                         <div className="text-brutal-lime">STACK: WEB</div>
                     </div>
