@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { ArrowDownRight } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -58,7 +59,7 @@ const Hero: React.FC = () => {
             </motion.p>
 
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}>
-              <a href="#work" onClick={(e) => handleScroll(e, '#work')} className="inline-flex items-center text-xl md:text-2xl font-black bg-black dark:bg-white text-white dark:text-black px-10 py-5 border-2 border-transparent hover:bg-brutal-lime hover:text-black hover:border-black shadow-hard transition-all duration-200 group">
+              <a href="#work" onClick={(e) => handleScroll(e, '#work')} className="inline-flex items-center text-xl md:text-2xl font-black bg-black dark:bg-white text-white dark:text-black px-10 py-5 border-2 border-transparent hover:bg-brutal-lime dark:hover:bg-brutal-lime hover:text-black hover:border-black shadow-hard transition-all duration-200 group">
                 VIEW_WORK
                 <ArrowDownRight className="ml-4 group-hover:rotate-45 transition-transform" size={32} />
               </a>
