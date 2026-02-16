@@ -21,7 +21,7 @@ const ProjectPreview: React.FC<ProjectPreviewProps> = ({ projects }) => {
 
   const getAssetUrl = (path: string) => {
     if (!path || path.startsWith('http') || path.startsWith('data:')) return path;
-    const baseUrl = (typeof window !== 'undefined' && window.location.pathname.includes('/my-portfolio/')) ? '/my-portfolio/' : '/';
+    const baseUrl = (typeof window !== 'undefined' && window.location.pathname.includes('/wdezzo-dev-portfolio/')) ? '/wdezzo-dev-portfolio/' : '/';
     return `${baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`}${path.startsWith('/') ? path.substring(1) : path}`;
   };
 
