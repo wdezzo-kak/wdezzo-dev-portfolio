@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState, useCallback, Suspense, lazy } from 'react';
-import { HashRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Marquee from './components/Marquee';
@@ -8,17 +8,25 @@ import Footer from './components/Footer';
 import { DEFAULT_PROJECTS, DEFAULT_SKILLS } from './constants';
 import { Project, Skill } from './types';
 
-// Lazy load non-critical sections
+// Lazy load sections
 const Projects = lazy(() => import('./components/Projects'));
 const Skills = lazy(() => import('./components/Skills'));
 const Testimonials = lazy(() => import('./components/Testimonials'));
 const Contact = lazy(() => import('./components/Contact'));
 const FeedbackSystem = lazy(() => import('./components/FeedbackSystem'));
 const AdminPanel = lazy(() => import('./components/AdminPanel'));
+const ProjectPreview = lazy(() => import('./components/ProjectPreview'));
 const NotFound = lazy(() => import('./components/NotFound'));
 
-// Optimization: Lazy section wrapper to prevent hydration overhead for off-screen elements
-const LazySection = ({ children, fallbackHeight = "400px" }: { children?: React.ReactNode, fallbackHeight?: string }) => {
+const LazySection = ({ 
+  children, 
+  id, 
+  fallbackHeight = "400px" 
+}: { 
+  children?: React.ReactNode, 
+  id?: string, 
+  fallbackHeight?: string 
+}) => {
   const [isVisible, setIsVisible] = useState(false);
   const ref = React.useRef<HTMLDivElement>(null);
 
@@ -30,16 +38,16 @@ const LazySection = ({ children, fallbackHeight = "400px" }: { children?: React.
           observer.disconnect();
         }
       },
-      { rootMargin: "200px" } // Start loading 200px before reaching the viewport
+      { rootMargin: "400px" }
     );
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
   }, []);
 
   return (
-    <div ref={ref} style={{ minHeight: isVisible ? 'auto' : fallbackHeight }}>
+    <section id={id} ref={ref} style={{ minHeight: isVisible ? 'auto' : fallbackHeight }} aria-labelledby={`${id}-heading`}>
       {isVisible ? <Suspense fallback={<div style={{ height: fallbackHeight }} />}>{children}</Suspense> : null}
-    </div>
+    </section>
   );
 };
 
@@ -56,56 +64,34 @@ interface MainLayoutProps {
 const LandingPage: React.FC<MainLayoutProps> = ({ 
   onToggleTheme, isDark, metadata, trackProjectInteraction, projects, skills, vitals
 }) => (
-  <div className="min-h-screen bg-[#f3f3f3] dark:bg-brutal-black font-sans text-brutal-black dark:text-white selection:bg-black dark:selection:bg-brutal-lime selection:text-brutal-lime dark:selection:text-black transition-colors duration-300 scroll-pt-20 pt-20">
+  <div className="min-h-screen bg-[#f3f3f3] dark:bg-brutal-black font-sans text-brutal-black dark:text-white transition-colors duration-300">
+    <a href="#main-content" className="sr-only focus:not-sr-only fixed top-4 left-4 z-[100] bg-brutal-lime text-black px-4 py-2 font-black border-4 border-black shadow-hard">
+      SKIP_TO_MAIN_CONTENT
+    </a>
     <Navbar onToggleTheme={onToggleTheme} isDark={isDark} />
-    
-    {/* Hero is critical for LCP - No lazy loading */}
-    <Hero />
-    
-    <Marquee text=" // RESPONSIVE DESIGN // LANDING PAGES // UI DEVELOPMENT // CLEAN CODE // " className="rotate-1 scale-105" />
-    
-    <LazySection fallbackHeight="800px">
-      <Projects onInteract={trackProjectInteraction} dynamicProjects={projects} />
-    </LazySection>
-
-    <Marquee text=" // HTML5 // CSS3 // JAVASCRIPT // BOOTSTRAP // TAILWIND // " direction="right" className="-rotate-1 scale-105 z-10 relative" />
-    
-    <LazySection fallbackHeight="400px">
-      <Skills dynamicSkills={skills} />
-    </LazySection>
-    
-    <LazySection fallbackHeight="500px">
-      <Testimonials />
-    </LazySection>
-    
-    <LazySection fallbackHeight="600px">
-      <Contact />
-    </LazySection>
-    
-    {/* Vitals are now passed directly to Footer */}
+    <main id="main-content" className="scroll-pt-20 pt-20 focus:outline-none" tabIndex={-1}>
+      <Hero />
+      <Marquee text=" // RESPONSIVE DESIGN // LANDING PAGES // UI DEVELOPMENT // CLEAN CODE // " className="rotate-1 scale-105" />
+      <LazySection id="work" fallbackHeight="800px">
+        <Projects onInteract={trackProjectInteraction} dynamicProjects={projects} />
+      </LazySection>
+      <Marquee text=" // HTML5 // CSS3 // JAVASCRIPT // BOOTSTRAP // TAILWIND // " direction="right" className="-rotate-1 scale-105 z-10 relative" />
+      <LazySection id="stack" fallbackHeight="400px">
+        <Skills dynamicSkills={skills} />
+      </LazySection>
+      <LazySection id="testimonials" fallbackHeight="500px">
+        <Testimonials />
+      </LazySection>
+      <LazySection id="contact" fallbackHeight="600px">
+        <Contact />
+      </LazySection>
+    </main>
     <Footer vitals={vitals} />
-
     <Suspense fallback={null}>
       <FeedbackSystem metadata={metadata} />
     </Suspense>
   </div>
 );
-
-function AdminWrapper({ projects, setProjects, skills, setSkills, vitals }: any) {
-  const navigate = useNavigate();
-  return (
-    <Suspense fallback={<div className="min-h-screen bg-black flex items-center justify-center text-white font-mono">LOADING_SIMULATOR...</div>}>
-      <AdminPanel 
-        projects={projects} 
-        setProjects={setProjects} 
-        skills={skills} 
-        setSkills={setSkills}
-        onExit={() => navigate('/')} 
-        vitals={vitals}
-      />
-    </Suspense>
-  );
-}
 
 function App() {
   const [vitals, setVitals] = useState({ lcp: 0, cls: 0, fid: 0, ttfb: 0 });
@@ -127,60 +113,52 @@ function App() {
     return saved ? JSON.parse(saved) : DEFAULT_SKILLS;
   });
 
-  const [metadata, setMetadata] = useState({
-    projectHistory: [] as string[],
-    currentSection: 'HERO'
-  });
-
+  // Performance Telemetry Hook
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    // Monitor TTFB
+    // TTFB
     const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
     if (navigation) {
-      setVitals(v => ({ ...v, ttfb: Math.round(navigation.responseStart - navigation.requestStart) }));
+      setVitals(v => ({ ...v, ttfb: Math.round(navigation.responseStart) }));
     }
 
-    // Largest Contentful Paint
-    const lcpObserver = new PerformanceObserver((list) => {
-      const entries = list.getEntries();
-      setVitals(v => ({ ...v, lcp: Math.round(entries[entries.length - 1].startTime) }));
+    // LCP
+    const lcpObserver = new PerformanceObserver((entryList) => {
+      const entries = entryList.getEntries();
+      const lastEntry = entries[entries.length - 1];
+      setVitals(v => ({ ...v, lcp: Math.round(lastEntry.startTime) }));
     });
     lcpObserver.observe({ type: 'largest-contentful-paint', buffered: true });
 
-    // Cumulative Layout Shift
-    const clsObserver = new PerformanceObserver((list) => {
-      let cls = 0;
-      for (const entry of list.getEntries() as any) {
-        if (!entry.hadRecentInput) cls += entry.value;
-      }
-      setVitals(v => ({ ...v, cls: parseFloat(cls.toFixed(4)) }));
-    });
-    clsObserver.observe({ type: 'layout-shift', buffered: true });
-
-    // First Input Delay
-    const fidObserver = new PerformanceObserver((list) => {
-      const entries = list.getEntries();
-      for (const entry of entries as any) {
-        setVitals(v => ({ ...v, fid: Math.round(entry.processingStart - entry.startTime) }));
-      }
+    // FID
+    const fidObserver = new PerformanceObserver((entryList) => {
+      entryList.getEntries().forEach((entry) => {
+        const fidEntry = entry as any;
+        setVitals(v => ({ ...v, fid: Math.round(fidEntry.processingStart - fidEntry.startTime) }));
+      });
     });
     fidObserver.observe({ type: 'first-input', buffered: true });
 
+    // CLS
+    let clsValue = 0;
+    const clsObserver = new PerformanceObserver((entryList) => {
+      for (const entry of entryList.getEntries()) {
+        const layoutShift = entry as any;
+        if (!layoutShift.hadRecentInput) {
+          clsValue += layoutShift.value;
+          setVitals(v => ({ ...v, cls: parseFloat(clsValue.toFixed(3)) }));
+        }
+      }
+    });
+    clsObserver.observe({ type: 'layout-shift', buffered: true });
+
     return () => {
       lcpObserver.disconnect();
-      clsObserver.disconnect();
       fidObserver.disconnect();
+      clsObserver.disconnect();
     };
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem('wdezzo_projects', JSON.stringify(projects));
-  }, [projects]);
-
-  useEffect(() => {
-    localStorage.setItem('wdezzo_skills', JSON.stringify(skills));
-  }, [skills]);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -196,10 +174,7 @@ function App() {
 
   const toggleTheme = useCallback(() => setIsDark(d => !d), []);
   const trackProjectInteraction = useCallback((projectId: string) => {
-    setMetadata(prev => prev.projectHistory.includes(projectId) ? prev : {
-      ...prev,
-      projectHistory: [...prev.projectHistory, projectId]
-    });
+    console.log(`Interacted with project: ${projectId}`);
   }, []);
 
   return (
@@ -211,7 +186,7 @@ function App() {
             <LandingPage 
               onToggleTheme={toggleTheme} 
               isDark={isDark} 
-              metadata={metadata} 
+              metadata={{ projectHistory: [], currentSection: 'HERO' }} 
               trackProjectInteraction={trackProjectInteraction}
               projects={projects}
               skills={skills}
@@ -220,15 +195,26 @@ function App() {
           } 
         />
         <Route 
+          path="/preview/:projectId" 
+          element={
+            <Suspense fallback={<div className="h-screen bg-black flex items-center justify-center text-white font-mono" aria-live="polite">LOADING_SIMULATOR...</div>}>
+              <ProjectPreview projects={projects} />
+            </Suspense>
+          }
+        />
+        <Route 
           path="/admin" 
           element={
-            <AdminWrapper 
-              projects={projects} 
-              setProjects={setProjects} 
-              skills={skills} 
-              setSkills={setSkills} 
-              vitals={vitals}
-            />
+            <Suspense fallback={<div className="h-screen bg-black flex items-center justify-center text-white font-mono" aria-live="polite">LOADING_SIMULATOR...</div>}>
+              <AdminPanel 
+                projects={projects} 
+                setProjects={setProjects} 
+                skills={skills} 
+                setSkills={setSkills} 
+                onExit={() => window.location.hash = '/'} 
+                vitals={vitals}
+              />
+            </Suspense>
           } 
         />
         <Route path="*" element={<Suspense fallback={null}><NotFound onBack={() => window.location.hash = '/'} /></Suspense>} />
