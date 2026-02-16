@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { MessageSquare, X, Send, CheckCircle2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -20,7 +21,6 @@ const BRUTAL_COLORS = [
   'bg-brutal-cyan-deep'
 ];
 
-// Curated list of "Real" roles to choose from randomly if left blank
 const RANDOM_ROLES = [
   'SOFTWARE_ENGINEER',
   'PRODUCT_DESIGNER',
@@ -95,12 +95,10 @@ export default function FeedbackSystem({ metadata }: FeedbackSystemProps) {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
-    // Pick a random real role if the user didn't specify one
     const finalRole = role.trim() !== '' 
       ? role.toUpperCase() 
       : RANDOM_ROLES[Math.floor(Math.random() * RANDOM_ROLES.length)];
 
-    // Clean data for Google Sheets
     const payload = {
       id: submissionId,
       name: name.trim() || 'ANONYMOUS_ENTITY',
@@ -109,11 +107,10 @@ export default function FeedbackSystem({ metadata }: FeedbackSystemProps) {
       opinion: opinion,
       origin_section: metadata.currentSection,
       project_history: metadata.projectHistory.join(', '),
-      show_in_testimonials: false, // Default to hidden - only you can enable in sheet
+      show_in_testimonials: false,
     };
 
     try {
-      // POST to Google Apps Script
       await fetch(CONFIG.GOOGLE_SCRIPT_URL, {
         method: "POST",
         mode: 'no-cors',
@@ -147,16 +144,19 @@ export default function FeedbackSystem({ metadata }: FeedbackSystemProps) {
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 z-[5110] w-14 h-14 bg-brutal-yellow dark:bg-brutal-purple border-4 border-black dark:border-white shadow-hard dark:shadow-hard-white  transition-all flex items-center justify-center text-black cursor-pointer group active:translate-x-1 active:translate-y-1 active:shadow-none"
+        className="fixed bottom-6 right-6 z-[5110] w-14 h-14 bg-brutal-yellow dark:bg-brutal-purple border-4 border-black dark:border-white shadow-hard dark:shadow-hard-white transition-all flex items-center justify-center text-black cursor-pointer group focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brutal-lime"
+        aria-label={isOpen ? "Close feedback menu" : "Open feedback menu"}
+        aria-expanded={isOpen}
+        type="button"
       >
         <AnimatePresence mode="wait">
           {isOpen ? (
             <motion.div key="close" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }}>
-              <X size={24} strokeWidth={3} />
+              <X size={24} strokeWidth={3} aria-hidden="true" />
             </motion.div>
           ) : (
             <motion.div key="open" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }}>
-              <MessageSquare size={24} strokeWidth={3} />
+              <MessageSquare size={24} strokeWidth={3} aria-hidden="true" />
             </motion.div>
           )}
         </AnimatePresence>
@@ -164,25 +164,22 @@ export default function FeedbackSystem({ metadata }: FeedbackSystemProps) {
 
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[5100] bg-black/40 sm:bg-transparent backdrop-blur-sm sm:backdrop-blur-none flex items-center justify-center sm:block p-4"
-            onClick={() => setIsOpen(false)}
-          >
+          <div className="fixed inset-0 z-[5100] bg-black/40 backdrop-blur-sm flex items-center justify-center p-4" onClick={() => setIsOpen(false)}>
             <motion.div
               initial={{ y: 50, opacity: 0, scale: 0.9 }}
               animate={{ y: 0, opacity: 1, scale: 1 }}
               exit={{ y: 50, opacity: 0, scale: 0.9 }}
-              className={`w-full max-w-md ${randomColor} border-4 border-black shadow-hard-xl relative flex flex-col max-h-[85vh] sm:fixed sm:bottom-24 sm:right-6`}
+              className={`w-full max-w-md ${randomColor} border-4 border-black shadow-hard-xl relative flex flex-col max-h-[85vh]`}
               onClick={(e) => e.stopPropagation()}
+              role="dialog"
+              aria-labelledby="feedback-title"
+              aria-modal="true"
             >
               <div className="overflow-y-auto p-8 brutal-scrollbar">
                 {isSubmitted ? (
-                  <div className="py-8 text-center">
+                  <div className="py-8 text-center" aria-live="assertive">
                     <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="inline-block p-4 bg-white border-4 border-black mb-6">
-                      <CheckCircle2 size={48} className="text-black" />
+                      <CheckCircle2 size={48} className="text-black" aria-hidden="true" />
                     </motion.div>
                     <h3 className="text-3xl font-black uppercase tracking-tighter mb-2 text-black">DATA_RECEIVED</h3>
                     <p className="font-mono text-sm text-black/70 italic">SYNC_TO_SHEET_INITIATED</p>
@@ -190,40 +187,42 @@ export default function FeedbackSystem({ metadata }: FeedbackSystemProps) {
                 ) : (
                   <>
                     <div className="mb-6 border-b-4 border-black pb-4 flex justify-between items-end">
-                      <h2 className="text-3xl font-black uppercase tracking-tighter leading-none text-black">VISITOR_LOG</h2>
-                      <span className="font-mono text-[10px] font-bold text-black opacity-50">{submissionId}</span>
+                      <h2 id="feedback-title" className="text-3xl font-black uppercase tracking-tighter leading-none text-black">VISITOR_LOG</h2>
+                      <span className="font-mono text-[10px] font-bold text-black opacity-60" aria-label={`Session ID: ${submissionId}`}>{submissionId}</span>
                     </div>
 
                     <form name="visitor-feedback" onSubmit={handleSubmit} className="space-y-4">
                       <div className="grid grid-cols-1 gap-4">
                         <div>
-                          <label className="block font-black uppercase text-xs mb-1 text-black">Identity</label>
+                          <label htmlFor="feedback-name" className="block font-black uppercase text-xs mb-1 text-black">Identity</label>
                           <input
+                            id="feedback-name"
                             type="text"
                             name="name"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                             placeholder="NAME / ALIAS"
-                            className="w-full bg-white dark:bg-neutral-800 border-2 border-black p-2 font-mono text-sm focus:bg-black focus:text-white focus:outline-none transition-colors"
+                            className="w-full bg-white border-2 border-black p-2 font-mono text-sm focus:bg-black focus:text-white focus:outline-none transition-colors"
                           />
                         </div>
                         
                         <div>
-                          <label className="block font-black uppercase text-xs mb-1 text-black">Role / Profession</label>
+                          <label htmlFor="feedback-role" className="block font-black uppercase text-xs mb-1 text-black">Role / Profession</label>
                           <input
+                            id="feedback-role"
                             type="text"
                             name="role"
                             value={role}
                             onChange={(e) => setRole(e.target.value)}
                             placeholder="BLANK = RANDOM_ROLE"
-                            className="w-full bg-white dark:bg-neutral-800 border-2 border-black p-2 font-mono text-sm focus:bg-black focus:text-white focus:outline-none transition-colors"
+                            className="w-full bg-white border-2 border-black p-2 font-mono text-sm focus:bg-black focus:text-white focus:outline-none transition-colors"
                           />
                         </div>
                       </div>
 
-                      <div>
-                        <label className="block font-black uppercase text-xs mb-1 text-black">Rating</label>
-                        <div className="flex gap-1">
+                      <fieldset>
+                        <legend className="block font-black uppercase text-xs mb-1 text-black">Rating</legend>
+                        <div className="flex gap-1" role="group">
                           {[1, 2, 3, 4, 5].map((star) => (
                             <button
                               key={star}
@@ -231,40 +230,43 @@ export default function FeedbackSystem({ metadata }: FeedbackSystemProps) {
                               onMouseEnter={() => setHoverRating(star)}
                               onMouseLeave={() => setHoverRating(0)}
                               onClick={() => setRating(star)}
-                              className={`w-10 h-10 border-2 border-black transition-all transform active:scale-95 ${
+                              className={`w-10 h-10 border-2 border-black transition-all transform active:scale-95 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-black ${
                                 (hoverRating || rating) >= star ? 'bg-brutal-yellow shadow-hard' : 'bg-white'
                               }`}
+                              aria-label={`Rate ${star} out of 5 stars`}
+                              aria-pressed={rating === star}
                             />
                           ))}
                         </div>
-                      </div>
+                      </fieldset>
 
                       <div>
-                        <label className="block font-black uppercase text-xs mb-1 text-black">Transmission</label>
+                        <label htmlFor="feedback-opinion" className="block font-black uppercase text-xs mb-1 text-black">Transmission</label>
                         <textarea
+                          id="feedback-opinion"
                           name="opinion"
                           required
                           rows={4}
                           value={opinion}
                           onChange={(e) => setOpinion(e.target.value)}
                           placeholder="INPUT_FEEDBACK_HERE..."
-                          className="w-full bg-white dark:bg-neutral-800 border-2 border-black p-2 font-mono text-sm focus:bg-black focus:text-white focus:outline-none transition-colors"
+                          className="w-full bg-white border-2 border-black p-2 font-mono text-sm focus:bg-black focus:text-white focus:outline-none transition-colors"
                         ></textarea>
                       </div>
 
                       <button
                         type="submit"
                         disabled={rating === 0}
-                        className="w-full py-4 bg-white disabled:opacity-50 border-4 border-black text-black font-black text-xl uppercase shadow-hard hover:translate-x-1 hover:translate-y-1 hover:shadow-none active:translate-y-0.5 transition-all flex items-center justify-center gap-2"
+                        className="w-full py-4 bg-white disabled:opacity-50 border-4 border-black text-black font-black text-xl uppercase shadow-hard hover:translate-x-1 hover:translate-y-1 hover:shadow-none active:translate-y-0.5 transition-all flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-black"
                       >
-                        PUSH <Send size={20} />
+                        PUSH <Send size={20} aria-hidden="true" />
                       </button>
                     </form>
                   </>
                 )}
               </div>
             </motion.div>
-          </motion.div>
+          </div>
         )}
       </AnimatePresence>
     </>
